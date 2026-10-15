@@ -1,0 +1,22 @@
+[project]
+name = "inflow-codex-agent-plugin"
+version = "0.1.0"
+description = "Inflowenger plugin node that runs OpenAI Codex as an agent on the plugin's host — a durable Codex thread per canvas call site, OS-sandboxed, with a human-in-the-loop outbound port for the approvals and questions Codex raises mid-run."
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "Mehdi Shokohifar", email = "mehdi.shokohifar@gmail.com" }]
+dependencies = [
+    "inflowenger-plugin-sdk>=0.2.0",
+    "nkeys>=0.2.0",      # nats-py needs it for JWT/.creds (INFRA_CRED) auth
+    "openai-codex>=0.162.1",  # pulls openai-codex-cli-bin: the codex runtime
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0", "pytest-asyncio>=0.23"]
+
+[tool.setuptools.packages.find]
+include = ["codex_agent*"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
